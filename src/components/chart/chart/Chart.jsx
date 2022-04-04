@@ -1,4 +1,5 @@
 import React from "react";
+import './Chart.css'
 
 const Chart = props => {
     return (
