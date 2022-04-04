@@ -19,6 +19,7 @@ const Expenses = (props) => {
                 onChangeFilter={filterChangeHandler}
             />
             {props.items.map(expense =>
+
                 <ExpenseItem
                     key={expense.id}
                     title={expense.title}
