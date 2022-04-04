@@ -18,9 +18,17 @@ const ExpenseForm = () => {
         console.log("Title Changed!")
         console.log(event.target.value)
         // setEnteredTitle(event.target.value)
-        setUserInput({
-            ...userInput,
-            enteredTitle: event.target.value
+        // setUserInput({
+        //     ...userInput,
+        //     enteredTitle: event.target.value
+        // })
+
+        /* If the state depends on the previous state*/
+        setUserInput((prevState) => {
+            return {
+                ...prevState,
+                enteredTitle: event.target.value
+            }
         })
     }
 
@@ -29,9 +37,17 @@ const ExpenseForm = () => {
         console.log("Amount Changed!")
         console.log(event.target.value)
         // setEnteredAmount(event.target.value)
-        setUserInput({
-            ...userInput,
-            enteredAmount: event.target.value
+        // setUserInput({
+        //     ...userInput,
+        //     enteredAmount: event.target.value
+        // })
+
+        /* If the state depends on the previous state*/
+        setUserInput((prevState) => {
+            return {
+                ...prevState,
+                enteredAmount: event.target.value
+            }
         })
     }
 
@@ -40,9 +56,17 @@ const ExpenseForm = () => {
         console.log("Amount Changed!")
         console.log(event.target.value)
         // setEnteredDate(event.target.value)
-        setUserInput({
-            ...userInput,
-            enteredDate: event.target.value
+        // setUserInput({
+        //     ...userInput,
+        //     enteredDate: event.target.value
+        // })
+
+        /* If the state depends on the previous state*/
+        setUserInput((prevState) => {
+            return {
+                ...prevState,
+                enteredDate: event.target.value
+            }
         })
     }
 
