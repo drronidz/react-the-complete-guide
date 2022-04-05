@@ -7,8 +7,13 @@ const Card = styled.div`
     padding: 1rem;
     background-color: rgb(31, 31, 31);
     margin: 2rem auto;
-    width: 50rem;
+    width: 100%;
     max-width: 95%;
+    
+    @media (min-width: 768px) {
+      width: auto;
+      
+    }
 `
 
 // const Card = (props) => {
