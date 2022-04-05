@@ -1,7 +1,9 @@
 import React, {useState} from "react";
 import './AddUser.css'
-import Card from "../ui/card/Card";
-import Button from "../ui/button/Button";
+import Button from "../../ui/button/Button";
+import Card from "../../ui/card/Card";
+
+
 
 const AddUser = (props) => {
     const [enteredUsername, setEnteredUsername] = useState('')
