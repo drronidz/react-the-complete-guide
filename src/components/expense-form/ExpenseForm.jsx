@@ -4,6 +4,7 @@ import './ExpenseForm.css'
 
 const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState('')
+    const [isValid, setIsValid] = useState(true)
     const [enteredAmount, setEnteredAmount] = useState('')
     const [enteredDate, setEnteredDate] = useState('')
 
@@ -17,6 +18,9 @@ const ExpenseForm = (props) => {
         console.log(event)
         console.log("Title Changed!")
         console.log(event.target.value)
+        if (event.target.value.trim().length > 0) {
+            setIsValid(true)
+        }
         setEnteredTitle(event.target.value)
         // setUserInput({
         //     ...userInput,
@@ -81,6 +85,12 @@ const ExpenseForm = (props) => {
         }
 
         console.log(expenseDATA)
+
+        if (enteredTitle.trim().length === 0) {
+            setIsValid(false)
+            return
+        }
+
         props.onSaveExpenseDATA(expenseDATA)
 
         // Resetting input fields ...
@@ -93,8 +103,13 @@ const ExpenseForm = (props) => {
         <form onSubmit={submitFormHandler}>
             <div className="new-expense__controls">
                 <div className="new-expense__control">
-                    <label>Title</label>
+                    <label style={{ color : !isValid ? 'red' : 'black' }}>Title</label>
                     <input
+                        style={{
+                            borderColor: !isValid ? 'red' : 'black',
+                            borderWidth: !isValid ? '3px' : '1px',
+                            background: !isValid ? 'salmon' : 'white'
+                        }}
                         type="text"
                         value={enteredTitle}
                         onChange={titleChangeHandler}/>
