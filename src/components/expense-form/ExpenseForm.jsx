@@ -102,14 +102,9 @@ const ExpenseForm = (props) => {
     return (
         <form onSubmit={submitFormHandler}>
             <div className="new-expense__controls">
-                <div className="new-expense__control">
-                    <label style={{ color : !isValid ? 'red' : 'black' }}>Title</label>
+                <div className={`new-expense__control ${!isValid ? 'invalid' : ''}`}>
+                    <label>Title</label>
                     <input
-                        style={{
-                            borderColor: !isValid ? 'red' : 'black',
-                            borderWidth: !isValid ? '3px' : '1px',
-                            background: !isValid ? 'salmon' : 'white'
-                        }}
                         type="text"
                         value={enteredTitle}
                         onChange={titleChangeHandler}/>

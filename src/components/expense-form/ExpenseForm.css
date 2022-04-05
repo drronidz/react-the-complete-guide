@@ -12,6 +12,10 @@
     display: block;
 }
 
+.new-expense__control.invalid label {
+    color: red;
+}
+
 .new-expense__control input {
     font: inherit;
     padding: 0.5rem;
@@ -19,6 +23,11 @@
     border: 1px solid #ccc;
     width: 20rem;
     max-width: 100%;
+}
+
+.new-expense__control.invalid input {
+    border: 3px solid red;
+    background-color: #ffa196;
 }
 
 .new-expense__actions {
