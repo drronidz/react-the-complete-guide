@@ -19,6 +19,7 @@ const AddUser = (props) => {
             return
         }
         console.log(enteredUsername, enteredAge)
+        props.onAddUser(enteredUsername, enteredAge)
         // Resetting Fields
         setEnteredUsername('')
         setEnteredAge('')
