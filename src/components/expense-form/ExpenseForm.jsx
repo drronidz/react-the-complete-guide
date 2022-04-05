@@ -1,6 +1,28 @@
 import React, {useState} from "react";
+import styled from 'styled-components'
 
 import './ExpenseForm.css'
+
+const FormControl = styled.div`
+& label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: ${ props => (props.invalid ? 'red' : 'black') };
+}
+
+& input {
+    font: inherit;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border-width: ${props => props.invalid ? '3px' : '1px'};
+    border-color: ${props => props.invalid ? 'red' : '#ccc'};
+    border-style: solid;
+    background: ${props => props.invalid ? '#ffd7d7' : 'white'};
+    width: 20rem;
+    max-width: 100%;
+}
+`
 
 const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState('')
@@ -102,13 +124,13 @@ const ExpenseForm = (props) => {
     return (
         <form onSubmit={submitFormHandler}>
             <div className="new-expense__controls">
-                <div className={`new-expense__control ${!isValid ? 'invalid' : ''}`}>
+                <FormControl invalid={!isValid}>
                     <label>Title</label>
                     <input
                         type="text"
                         value={enteredTitle}
                         onChange={titleChangeHandler}/>
-                </div>
+                </FormControl>
                 <div className="new-expense__control">
                     <label>Amount</label>
                     <input
