@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useReducer, useContext} from 'react';
+import React, {useState, useEffect, useReducer, useContext, useRef} from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -9,11 +9,11 @@ import Input from "../UI/Input/Input";
 const emailReducer = (state, action) => {
 
     if (action.type === 'USER_INPUT') {
-        return { value: action.value, isValid: action.value.includes('@') }
+        return {value: action.value, isValid: action.value.includes('@')}
     }
 
     if (action.type === 'INPUT_BLUR') {
-        return { value: state.value, isValid: state.value.includes('@') }
+        return {value: state.value, isValid: state.value.includes('@')}
     }
 
     return {value: '', isValid: false}
@@ -22,11 +22,11 @@ const emailReducer = (state, action) => {
 const passwordReducer = (state, action) => {
 
     if (action.type === 'USER_INPUT') {
-        return { value: action.value, isValid: action.value.trim().length > 6 }
+        return {value: action.value, isValid: action.value.trim().length > 6}
     }
 
     if (action.type === 'INPUT_BLUR') {
-        return { value: state.value, isValid: state.value.trim().length > 6 }
+        return {value: state.value, isValid: state.value.trim().length > 6}
     }
 
     return {value: '', isValid: false}
@@ -50,6 +50,9 @@ const Login = (props) => {
 
     const authContext = useContext(AuthContext)
 
+    const emailInputRef = useRef()
+    const passwordInputRef = useRef()
+
     // useEffect(() => {
     //   console.log('Effect Running')
     //
@@ -58,22 +61,22 @@ const Login = (props) => {
     //   }
     // }, [])
 
-    const { isValid: emailIsValid } = emailState
-    const { isValid: passwordIsValid } = passwordState
+    const {isValid: emailIsValid} = emailState
+    const {isValid: passwordIsValid} = passwordState
 
     useEffect(() => {
 
-      const identifier = setTimeout(() => {
-        console.log('Checking form validity!')
-        setFormIsValid(
-            emailIsValid && passwordIsValid
-        );
-      }, 500)
+        const identifier = setTimeout(() => {
+            console.log('Checking form validity!')
+            setFormIsValid(
+                emailIsValid && passwordIsValid
+            );
+        }, 500)
 
-      return () => {
-        console.log('CLEANUP')
-        clearTimeout(identifier)
-      }
+        return () => {
+            console.log('CLEANUP')
+            clearTimeout(identifier)
+        }
     }, [emailIsValid, passwordIsValid])
 
     const emailChangeHandler = (event) => {
@@ -115,13 +118,22 @@ const Login = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        authContext.onLogin(emailState.value, passwordState.value);
+        if (formIsValid) {
+            authContext.onLogin(emailState.value, passwordState.value);
+        }
+        else if (!emailIsValid) {
+            emailInputRef.current.focus()
+        }
+        else {
+            passwordInputRef.current.focus()
+        }
     };
 
     return (
         <Card className={classes.login}>
             <form onSubmit={submitHandler}>
                 <Input
+                    ref={emailInputRef}
                     id="email"
                     label="E-Mail"
                     type="email"
@@ -131,6 +143,7 @@ const Login = (props) => {
                     onBlur={validateEmailHandler}
                 />
                 <Input
+                    ref={passwordInputRef}
                     id="password"
                     label="Password"
                     type="password"
@@ -140,7 +153,7 @@ const Login = (props) => {
                     onBlur={validatePasswordHandler}
                 />
                 <div className={classes.actions}>
-                    <Button type="submit" className={classes.btn} disabled={!formIsValid}>
+                    <Button type="submit" className={classes.btn}>
                         Login
                     </Button>
                 </div>
